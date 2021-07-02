@@ -1,0 +1,17 @@
+{% set items = [ 
+    { title: labels.view, component: 'checkout::admin.transactions.view', icon: 'list', active: true },
+    { title: labels.details, component: 'checkout::admin.transactions.details', icon: 'info' },
+  
+] %}
+
+{{  component('components:tabs.vertical',{ 
+        items: items, 
+        menu: { id: 'transactions_menu' }, 
+        item_class: 'transaction-tab-item',
+        content: { 
+            id: 'transactions_content',
+            component: 'checkout::admin.transactions.view',
+            params: params 
+        } 
+    })
+}}

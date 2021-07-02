@@ -1,0 +1,24 @@
+{
+    "title": "Checkout",
+    "name": "checkout",
+    "package-type": "extension",
+    "type": "system",
+    "description": "Checkout service.",
+    "short-description": "Checkout service.",
+    "version": "1.0.0",
+    "repository": "https://github.com/arikaim-repository/checkout-extension.git",
+    "private-repository": true,
+    "position": "2",
+    "admin-menu": {        
+        "title": "Checkout",
+        "icon": "cash register",
+        "page-title": "Checkout",
+        "page-icon": "cash register",       
+        "component": "checkout::admin"
+    },
+    "require": {
+        "modules": [
+            "checkout"
+        ]
+    }
+}

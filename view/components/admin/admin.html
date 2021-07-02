@@ -1,0 +1,11 @@
+{% set items = [ 
+    { id: 'view_button', title: labels.transactions.content, component: 'checkout::admin.transactions', icon: 'grid layout', active: true },  
+    { id: 'settings_button', title: labels.settings.content, component: 'checkout::admin.config', icon: 'cogs' },    
+] %}
+
+{{  component('components:tabs',{ 
+        items: items,
+        menu: { component: 'system:admin.extensions.menu.actions', extension: 'checkout' },
+        content: { component: 'checkout::admin.transactions' } 
+    })
+}}

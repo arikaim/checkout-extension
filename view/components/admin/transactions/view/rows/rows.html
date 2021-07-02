@@ -1,0 +1,35 @@
+{% set model = createModel('Transactions','checkout').orderBy('id','desc') %}
+{{ createSearch('transaction_id','transactions','like:%{value}%','and') }}
+{% set model = applySearch(model,'transactions') %}
+{% set items = paginate(model,'transactions') %}
+
+{% for item in items.getItems() %}  
+    <tr id="{{ item.uuid }}">              
+        <td>                                  
+            <button class="ui icon mini basic button transaction-details" uuid="{{ item.uuid }}">
+                <i class="icon info"></i>
+            </button>                        
+        </td>
+        <td>
+            {{ item.date_created|dateFormat }}
+        </td>  
+        <td>
+            {{ component('checkout::admin.transactions.label',{ status: item.status }) }}         
+        </td>
+        <td>
+           {{ item.transaction_id }}       
+        </td>
+        <td>
+            {{ item.currency }}
+        </td>         
+        <td>
+            {{ item.amount|numberFormat }}
+        </td>                              
+        <td>
+            {{ item.payer }}
+        </td>    
+        <td>
+            {{ item.checkout_driver }}
+        </td>                       
+    </tr>
+{% endfor %}

@@ -1,0 +1,7 @@
+{% component 'components:tabs.vertical.content' %}
+{% set driver_name = driver_name|default('paypal') %}
+
+<div class="mt-4" id="transaction_details" uuid="{{ uuid }}" driver-name="{{ driver_name }}">   
+    ...
+</div>
+{% endcomponent %}

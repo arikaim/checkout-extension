@@ -1,0 +1,24 @@
+{
+    "labels": {
+        "transactions": {
+            "content": "Transactions",
+            "title": "Transactions"
+        }, 
+        "subscriptions": {
+            "content": "Subscriptions",
+            "title": "Subscriptions"
+        },  
+        "view": {
+            "content": "Drivers",
+            "title": "Checkout drivers"
+        },                
+        "settings": {
+            "content": "Settings",
+            "title": "Settings"
+        }, 
+        "preview": {
+            "content": "View",
+            "title": "View"
+        }
+    }   
+}
