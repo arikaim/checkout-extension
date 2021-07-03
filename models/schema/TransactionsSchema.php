@@ -35,7 +35,7 @@ class TransactionsSchema extends Schema
         $table->id();
         $table->prototype('uuid');
         $table->userId();
-        $table->string('status')->nullable(true);
+        $table->status();
         $table->string('transaction_id')->nullable(false);
         $table->decimal('amount',15,4)->nullable(false);
         $table->string('currency')->nullable(false);
@@ -44,6 +44,7 @@ class TransactionsSchema extends Schema
         $table->dateCreated();
         $table->text('details')->nullable(true);
         // index
+        $table->unique(['transaction_id']);
         $table->index('payer');  
         $table->index('checkout_driver');  
         $table->index('amount');          

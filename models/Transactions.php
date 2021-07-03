@@ -66,8 +66,15 @@ class Transactions extends Model implements TransactionStorageInterface
      * @param TransactionInterface $transaction
      * @return boolean
      */
-    public function saveTransaction(TransactionInterface $transaction)
+    public function saveTransaction(TransactionInterface $transaction): bool
     {
+        $saved = $this->getTransaction($transaction->getTransactionId());
+        if (\is_object($saved) == true) {
+           return (bool)$saved->update([
+               'status' => $transaction->getStatus()
+            ]);
+        }
+
         $info = [
             'transaction_id'  => $transaction->getTransactionId(),
             'amount'          => $transaction->getAmount(),
