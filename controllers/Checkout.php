@@ -13,6 +13,7 @@ use Arikaim\Core\Controllers\Controller;
 use Arikaim\Core\Db\Model;
 use Arikaim\Core\Http\Url;
 use Arikaim\Modules\Checkout\CheckoutData;
+use Arikaim\Core\Interfaces\Content\ContentItemInterface;
 
 /**
  * Checkout pages controler
@@ -36,6 +37,12 @@ class Checkout extends Controller
         $dataId = $data->get('id');
         $dataType = $data->get('type','checkout');
 
+        if (empty($driver) == true) {
+            // not valid checkout dirver name 
+            $data['message'] = 'Not valid checkout driver name.';              
+            return $this->pageLoad($request,$response,$data,'checkout>checkout.error',$language);      
+        }
+
         // try from event 
         $checkoutData = $this->get('event')->dispatch('checkout.success',[
             'id'   => $dataId,
@@ -43,20 +50,31 @@ class Checkout extends Controller
         ]);
 
         if (\is_object($checkoutData) == false) {
-            // try from content system // TODO
-            $checkoutData = CheckoutData::create(12.00,'USD','order id: ' . time());
+            // try from content system
+            $checkoutData = $this->get('content')->type($dataType)->get($dataId);            
         }
-     
-        $resp = $driver->checkout($checkoutData);          
+        
 
+        if (($checkoutData instanceof ContentItemInterface) == false) {
+            // not valie checkout data
+            $data['message'] = 'Not valid checkout data.';             
+            return $this->pageLoad($request,$response,$data,'checkout>checkout.error',$language);      
+        }
+
+        $resp = $driver->checkout($checkoutData);          
+        
+        // save checkout item
+        $token = $resp->getTransactionReference();
+        $checkoutData->setValue('token',$token);
+        $this->get('content')->provider('checkout')->saveItem($token,$checkoutData->toArray());
+      
         if ($resp->isRedirect() == true) {
             $this->get('event')->dispatch('checkout.payment',$checkoutData->toArray());
-            $url = $resp->getRedirectUrl();
-
-            return $this->withRedirect($response,$url);
+            return $this->withRedirect($response,$resp->getRedirectUrl());
         }
      
         // show error page      
+        $data['message'] = $resp->getMessage();
         return $this->pageLoad($request,$response,$data,'checkout>checkout.error',$language);
     }
 
@@ -72,15 +90,18 @@ class Checkout extends Controller
     {               
         $language = $this->getPageLanguage($data);
         $params = $request->getQueryParams();    
+        $token = $params['token'] ?? null;
         $defaultDriver = $this->get('options')->get('checkout.default.driver');   
         $driverName = $data->get('name',$defaultDriver);  
-
         $driver = $this->get('driver')->create($driverName);
        
-        $transaction = $driver->completeCheckout($params);
+        $checkoutData = $this->get('content')->type('checkout')->get($token);   
+
+        $transaction = $driver->completeCheckout($checkoutData);
 
         if ($transaction == null) {
             // show error page      
+            $data['message'] = 'Error complete checkout';
             return $this->pageLoad($request,$response,$data,'checkout>checkout.error',$language);
         }
       
