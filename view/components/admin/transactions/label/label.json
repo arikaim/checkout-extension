@@ -1,7 +1,8 @@
 {
     "labels": {
+        "pending": "Pending",
         "completed": "Completed",
-        "error": "Error",
-        "refund": "Refund"
+        "canceled": "Canceled",
+        "error": "Error"        
     }
 }

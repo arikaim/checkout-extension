@@ -1,17 +1,13 @@
-{% set items = [ 
-    { title: labels.view, component: 'checkout::admin.transactions.view', icon: 'list', active: true },
-    { title: labels.details, component: 'checkout::admin.transactions.details', icon: 'info' },
-  
-] %}
-
-{{  component('components:tabs.vertical',{ 
-        items: items, 
-        menu: { id: 'transactions_menu' }, 
-        item_class: 'transaction-tab-item',
-        content: { 
-            id: 'transactions_content',
-            component: 'checkout::admin.transactions.view',
-            params: params 
-        } 
-    })
-}}
+<div class="ui segment">
+    <div class="ui grid">
+        <div class="ten wide column">                   
+        </div>
+        <div class="six wide right aligned column">       
+            {{ component('components:paginator.dropdown',{ namespace: 'transactions' }) }}
+        </div>
+    </div>
+</div>
+<div class="mt-4 flex flex-row w-full" style="border:1px solid red">
+    {{ component('checkout::admin.transactions.view',{}) }}
+    <div class="p-1 hidden" id="right_sidebar" style="border:1px solid red"></div>
+</div>

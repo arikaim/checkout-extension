@@ -1,6 +1,3 @@
 {
-    "title": {
-        "content": "Transaction Details",
-        "icon": "info"
-    }
+    "title": "Transaction Details"       
 }
