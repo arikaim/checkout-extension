@@ -1,3 +1,27 @@
-<div class="w-3/4">   
-    <h4>{{ title }}</h4>
+
+{% set transaction = createModel('Transactions','checkout').findById(uuid) %}
+<div class="px-2">   
+    {{ component('semantic~segment-title',{ icon: 'info', title: title, close_button: true }) }}
+    <div class="py-4">
+        <table class="ui table compact definition mini">
+            <body>               
+                <tr>
+                    <td class="two wide font-bold right aligned">{{ labels.id }}</td> 
+                    <td>{{ transaction.transaction_id }}</td>
+                </tr>               
+            </body>
+        </table>            
+    </div>
+    <div class="mt-4">
+        <table class="ui table compact definition mini">
+            <body>
+                {% for key, value in transaction.full_details %}
+                <tr>
+                    <td class="two wide font-bold right aligned">{{ key }}</td> 
+                    <td>{{ value }}</td>
+                </tr>
+                {% endfor %}
+            </body>
+        </table>      
+    </div>
 </div>

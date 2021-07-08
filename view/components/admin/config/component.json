@@ -1,7 +1,7 @@
 {
     "include": {
         "js": [
-            "components:search"          
+            "system:admin.drivers"           
         ]
     },
     "access": {

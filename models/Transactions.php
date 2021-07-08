@@ -60,6 +60,12 @@ class Transactions extends Model implements TransactionStorageInterface
      */
     public $timestamps = false;
 
+
+    public function getFullDetailsAttribute()
+    {
+        return (empty($this->details) == true) ? 'test' : \json_decode($this->details,true);
+    }
+
     /**
      * Save transaction
      *

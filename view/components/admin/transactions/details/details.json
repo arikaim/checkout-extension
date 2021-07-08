@@ -1,3 +1,6 @@
 {
-    "title": "Transaction Details"       
+    "title": "Transaction Details",
+    "labels": {
+        "id": "Transaction Id"
+    }       
 }

@@ -1,3 +1,6 @@
 {
-    
+    "message": "Sucess checkput",
+    "labels": {
+        "success": "Success"
+    }
 }

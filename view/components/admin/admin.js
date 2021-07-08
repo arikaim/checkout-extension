@@ -18,8 +18,8 @@ function CheckoutControlPanel() {
     };
 }
 
-var checkout = new CheckoutControlPanel();
+var checkoutAdmin = new CheckoutControlPanel();
 
-arikaim.component.onLoaded(function() {
+arikaim.component.onLoaded(function() { 
     arikaim.ui.tab();        
 });

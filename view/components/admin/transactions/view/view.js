@@ -28,8 +28,8 @@ function TransactionsView() {
     this.initRows = function() {
         arikaim.ui.button('.transaction-details',function(element) {
             var uuid = $(element).attr('uuid');
-
             $('#right_sidebar').show();
+            
             return arikaim.page.loadContent({
                 id: 'right_sidebar',
                 component: 'checkout::admin.transactions.details',

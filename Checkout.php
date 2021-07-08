@@ -37,7 +37,7 @@ class Checkout extends Extension
         $this->registerEvent('checkout.success','Success payment');  
         $this->registerEvent('checkout.cancel','Cancel payment');  
         $this->registerEvent('checkout.notify','IPN notify');  
-        $this->registerEvent('checkout.payment','Checkout payment');  
+        $this->registerEvent('checkout.create','Checkout payment create.');  
     
         // Create db tables
         $this->createDbTable('TransactionsSchema');

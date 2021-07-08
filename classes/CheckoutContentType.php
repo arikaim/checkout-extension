@@ -31,6 +31,8 @@ class CheckoutContentType extends ContentType
         $this->addField('amount','number','Amount');
         $this->addField('currency','text','Currency Code');       
         $this->addField('order_id','text','Order Id');
+        $this->addField('order_type','text','Order Type');
         $this->addField('description','text','Description');  
+        $this->addField('transaction_id','text','Checkout Transaction Id');          
     }
 }

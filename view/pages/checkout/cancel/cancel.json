@@ -1,3 +1,6 @@
 {
-    "title": "Checkout Cancel Page"
+    "title": "Checkout Cancel Page",
+    "labels": {
+        "cancel": "Cancel"
+    }
 }
