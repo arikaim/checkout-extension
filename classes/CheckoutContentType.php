@@ -28,6 +28,7 @@ class CheckoutContentType extends ContentType
         // fields
         $this->addField('id','text','Id');
         $this->addField('token','text','Token');
+        $this->addField('checkout_driver','text','Checkout driver name');  
         $this->addField('amount','number','Amount');
         $this->addField('currency','text','Currency Code');       
         $this->addField('order_id','text','Order Id');

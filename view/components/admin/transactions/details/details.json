@@ -1,6 +1,7 @@
 {
     "title": "Transaction Details",
     "labels": {
-        "id": "Transaction Id"
+        "id": "Id",
+        "external_id": "External Id"
     }       
 }

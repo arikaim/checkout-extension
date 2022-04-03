@@ -4,9 +4,18 @@
     {{ component('semantic~segment-title',{ icon: 'info', title: title, close_button: true }) }}
     <div class="py-4">
         <table class="ui table compact definition mini">
-            <body>               
+            <body>   
                 <tr>
                     <td class="two wide font-bold right aligned">{{ labels.id }}</td> 
+                    <td>
+                        <div class="ui basic label">
+                            {{ transaction.id }}
+                        </div>
+                        {{ transaction.uuid }}
+                    </td>
+                </tr>             
+                <tr>
+                    <td class="two wide font-bold right aligned">{{ labels.external_id }}</td> 
                     <td>{{ transaction.transaction_id }}</td>
                 </tr>               
             </body>

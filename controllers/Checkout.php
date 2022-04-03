@@ -30,73 +30,52 @@ class Checkout extends Controller
     { 
         $language = $this->getPageLanguage($data);
         $defaultDriver = $this->get('options')->get('checkout.default.driver');   
-        $driverName = $data->get('name',$defaultDriver);
-        $driver = $this->get('driver')->create($driverName);
+        $driverName = $data->get('name',$defaultDriver);       
         $dataId = $data->get('id');
-        $dataType = $data->get('type','checkout');
+        $extensionName = $data->get('extension',null);
 
-        if (empty($driver) == true) {
+        $driver = $this->get('driver')->create($driverName);
+
+        if (\is_object($driver) == false) {
             // not valid checkout dirver name 
-            $data['message'] = 'Not valid checkout driver name.';              
-            return $this->pageLoad($request,$response,$data,'checkout>checkout.error',$language);      
+            $error = 'Not valid checkout driver name.';      
+            return $this->pageLoad($request,$response,$error,'checkout>checkout.error',$language);      
         }
 
-        // try from event 
-        $checkoutData = $this->get('event')->dispatch('checkout.create',[
-            'id'   => $dataId,
-            'type' => $dataType
-        ]);
-        
-        if (\is_object($checkoutData) == false) {
-            // try from content system
-            if ($this->get('content')->hasContentType($dataType) == false) {
-                // not valid data type
-                $data['message'] = 'Not valid daat type name.';              
-                return $this->pageLoad($request,$response,$data,'checkout>checkout.error',$language);  
-            }
-          
-            $checkoutData = $this->get('content')->type($dataType)->get($dataId);            
-        }
-        
-
+        // Create checkout data form event subscriber
+        list($checkoutData) = $this->get('event')->dispatch('checkout.create',[
+            'order_id'          => \trim($dataId),
+            'checkout_driver'   => \trim($driverName)              
+        ],false,'orders');
+    
         if (($checkoutData instanceof ContentItemInterface) == false) {
-            // not valie checkout data
-            $data['message'] = 'Not valid checkout data.';             
+            // not valid checkout data
+            $data['error_message'] = 'Not valid checkout data.';             
             return $this->pageLoad($request,$response,$data,'checkout>checkout.error',$language);      
-        }
-
-        if ($dataType != 'checkout') {
-            $checkoutData = $checkoutData->runAction('convert.checkout');
-        }
-
-        if ($checkoutData == null) {
-            // not valie checkout data
-            $data['message'] = 'Not valid checkout data.';             
-            return $this->pageLoad($request,$response,$data,'checkout>checkout.error',$language); 
         }
 
         // process
-        $resp = $driver->checkout($checkoutData);    
+        $checkoutResponse = $driver->checkout($checkoutData);  
 
-        $errorMessage = $resp->getMessage();
-        if (empty($errorMessage) == false) {
-            $data['message'] = $errorMessage;             
+        if ($checkoutResponse->hasError() == true) {
+            $data['error_message'] = $checkoutResponse->getError();             
             return $this->pageLoad($request,$response,$data,'checkout>checkout.error',$language); 
         }
       
-        // save checkout item
-        $token = $resp->getTransactionReference();
-        $checkoutData->setValue('token',$token);
-        $this->get('content')->provider('checkout')->saveItem($token,$checkoutData->toArray());
-      
-        if ($resp->isRedirect() == true) {
-            $this->get('event')->dispatch('checkout.payment',$checkoutData->toArray());
-            return $this->withRedirect($response,$resp->getRedirectUrl());
+        // token update  
+        $checkoutData->setValue('token',$checkoutResponse->getToken());
+        $checkoutData->setValue('checkout_driver',\trim($driverName));
+        $this->get('event')->dispatch('checkout.token.update',$checkoutData->toArray());
+             
+        if ($checkoutResponse->isRedirect() == true) {
+            return $this->withRedirect($response,$checkoutResponse->getRedirectUrl());
         }
      
-        // show error page      
-        $data['message'] = $resp->getMessage();
-        return $this->pageLoad($request,$response,$data,'checkout>checkout.error',$language);
+        // show error page   
+        if ($checkoutResponse->hasError() == true) {
+            $data['error_message'] = $checkoutResponse->getError();
+            return $this->pageLoad($request,$response,$data,'checkout>checkout.error',$language);
+        }
     }
 
     /**
@@ -116,7 +95,17 @@ class Checkout extends Controller
         $driverName = $data->get('name',$defaultDriver);  
         $driver = $this->get('driver')->create($driverName);
        
-        $checkoutData = $this->get('content')->type('checkout')->get($token);   
+        // Create checkout data form event subscriber
+        list($checkoutData) = $this->get('event')->dispatch('checkout.create',[
+            'token'             => \trim($token),
+            'checkout_driver'   => \trim($driverName)           
+        ],false,'orders');
+
+        if (($checkoutData instanceof ContentItemInterface) == false) {
+            // not valid checkout data
+            $data['error_message'] = 'Not valid checkout data.';             
+            return $this->pageLoad($request,$response,$data,'checkout>checkout.error',$language);      
+        }
 
         $transaction = $driver->completeCheckout($checkoutData);
 

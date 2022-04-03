@@ -60,10 +60,14 @@ class Transactions extends Model implements TransactionStorageInterface
      */
     public $timestamps = false;
 
-
+    /**
+     * full_details attribute
+     *
+     * @return mixed
+     */
     public function getFullDetailsAttribute()
     {
-        return (empty($this->details) == true) ? 'test' : \json_decode($this->details,true);
+        return (empty($this->details) == true) ? null : \json_decode($this->details,true);
     }
 
     /**
@@ -76,7 +80,7 @@ class Transactions extends Model implements TransactionStorageInterface
     {
         $saved = $this->getTransaction($transaction->getTransactionId());
         if (\is_object($saved) == true) {
-           return (bool)$saved->update([
+            return (bool)$saved->update([
                'status' => $transaction->getStatus()
             ]);
         }
@@ -101,7 +105,7 @@ class Transactions extends Model implements TransactionStorageInterface
      * Get transaction
      *
      * @param string $id
-     * @return mixed
+     * @return Model|null
     */
     public function getTransaction($id)
     {

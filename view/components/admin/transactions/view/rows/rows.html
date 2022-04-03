@@ -2,7 +2,11 @@
 {{ createSearch('transaction_id','transactions','like:%{value}%','and') }}
 {% set model = applySearch(model,'transactions') %}
 {% set items = paginate(model,'transactions') %}
-
+{% if items.getItems()|length == 0 %}
+<tr>
+    <td colspan="6">..</td>
+</tr>
+{% endif %}
 {% for item in items.getItems() %}  
     <tr id="{{ item.uuid }}">              
         <td>                                  
