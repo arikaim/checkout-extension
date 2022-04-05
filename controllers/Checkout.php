@@ -30,10 +30,12 @@ class Checkout extends Controller
     { 
         $language = $this->getPageLanguage($data);
         $defaultDriver = $this->get('options')->get('checkout.default.driver');   
-        $driverName = $data->get('name',$defaultDriver);       
+        $driverName = $data->get('driver_name',$defaultDriver);       
         $dataId = $data->get('id');
         $extensionName = $data->get('extension',null);
-
+        $options       = $data->get('options');
+        $userId       = $data->get('user');
+        $extensionName = ($extensionName == 'all' || empty($extensionName) == true) ? null : $extensionName;
         $driver = $this->get('driver')->create($driverName);
 
         if (\is_object($driver) == false) {
@@ -45,8 +47,11 @@ class Checkout extends Controller
         // Create checkout data form event subscriber
         list($checkoutData) = $this->get('event')->dispatch('checkout.create',[
             'order_id'          => \trim($dataId),
+            'extension'         => $extensionName,
+            'options'           => $options,
+            'user_id'           => $userId,
             'checkout_driver'   => \trim($driverName)              
-        ],false,'orders');
+        ],false,$extensionName);
     
         if (($checkoutData instanceof ContentItemInterface) == false) {
             // not valid checkout data
@@ -65,7 +70,8 @@ class Checkout extends Controller
         // token update  
         $checkoutData->setValue('token',$checkoutResponse->getToken());
         $checkoutData->setValue('checkout_driver',\trim($driverName));
-        $this->get('event')->dispatch('checkout.token.update',$checkoutData->toArray());
+      
+        $this->get('event')->dispatch('checkout.token.update',$checkoutData->toArray(),false,$extensionName);
              
         if ($checkoutResponse->isRedirect() == true) {
             return $this->withRedirect($response,$checkoutResponse->getRedirectUrl());
@@ -89,6 +95,7 @@ class Checkout extends Controller
     public function checkoutSuccess($request, $response, $data) 
     {               
         $language = $this->getPageLanguage($data);
+        $extensionName = $data->get('extension',null);  
         $params = $request->getQueryParams();    
         $token = $params['token'] ?? null;
         $defaultDriver = $this->get('options')->get('checkout.default.driver');   
@@ -99,7 +106,7 @@ class Checkout extends Controller
         list($checkoutData) = $this->get('event')->dispatch('checkout.create',[
             'token'             => \trim($token),
             'checkout_driver'   => \trim($driverName)           
-        ],false,'orders');
+        ],false,$extensionName);
 
         if (($checkoutData instanceof ContentItemInterface) == false) {
             // not valid checkout data
@@ -111,7 +118,7 @@ class Checkout extends Controller
 
         if ($transaction == null) {
             // show error page      
-            $data['message'] = 'Error complete checkout';
+            $data['error_message'] = 'Error. Order is paid or error checkout transaction not valid.';
             return $this->pageLoad($request,$response,$data,'checkout>checkout.error',$language);
         }
       
@@ -120,7 +127,7 @@ class Checkout extends Controller
 
         $checkoutData->setValue('transaction_id',$transaction->getTransactionId());
 
-        $this->get('event')->dispatch('checkout.success',$checkoutData->toArray());
+        $this->get('event')->dispatch('checkout.success',$checkoutData->toArray(),false,$extensionName);
 
         return $this->pageLoad($request,$response,$data,'checkout>checkout.success',$language);
     }
@@ -136,13 +143,12 @@ class Checkout extends Controller
     public function checkoutCancel($request, $response, $data) 
     {               
         $language = $this->getPageLanguage($data);
+        $extensionName = $data->get('extension',null);  
         $token = $params['token'] ?? null;
-        $checkoutData = (empty($token) == false) ? $this->get('content')->type('checkout')->get($token) : null;  
-        
-        $data['checkout'] = $checkoutData;
-        $data['token'] = $token;
-
-        $this->get('event')->dispatch('checkout.cancel',$checkoutData ?? []);
+    
+        $this->get('event')->dispatch('checkout.cancel',[
+            'token' => $token
+        ],false,$extensionName);
 
         return $this->pageLoad($request,$response,$data,'checkout>checkout.cancel',$language);
     }

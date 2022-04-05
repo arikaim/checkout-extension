@@ -28,9 +28,9 @@ class Checkout extends Extension
         // Api               
         $this->addApiRoute('POST','/api/checkout/notify[/{name}]','CheckoutApi','notify'); 
         // Pages
-        $this->addPageRoute('/checkout/{name}/{id}[/{type}]','Checkout','checkout','checkout>checkout');    
-        $this->addPageRoute('/checkout/success/{name}/[{data}]','Checkout','checkoutSuccess','checkout>checkout.success');   
-        $this->addPageRoute('/checkout/cancel/[{data}]','Checkout','checkoutCancel','checkout>checkout.cancel');   
+        $this->addPageRoute('/checkout/{driver_name}/{id}[/{extension}[/{options}[/{user}]]]','Checkout','checkout','checkout>checkout');    
+        $this->addPageRoute('/checkout/success/{driver_name}/{extension}/[{options}[/{user}]]','Checkout','checkoutSuccess','checkout>checkout.success');   
+        $this->addPageRoute('/checkout/cancel/{extension}/[{options}[/{user}]]','Checkout','checkoutCancel','checkout>checkout.cancel');   
         // Events
         $this->registerEvent('checkout.create','Checkout payment create.');  
         $this->registerEvent('checkout.token.update','Checkout token notify.');  
