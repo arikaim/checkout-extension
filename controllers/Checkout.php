@@ -34,7 +34,7 @@ class Checkout extends Controller
         $dataId = $data->get('id');
         $extensionName = $data->get('extension',null);
         $options       = $data->get('options');
-        $userId       = $data->get('user');
+        $userId        = $data->get('user');
         $extensionName = ($extensionName == 'all' || empty($extensionName) == true) ? null : $extensionName;
         $driver = $this->get('driver')->create($driverName);
 
@@ -99,7 +99,7 @@ class Checkout extends Controller
         $params = $request->getQueryParams();    
         $token = $params['token'] ?? null;
         $defaultDriver = $this->get('options')->get('checkout.default.driver');   
-        $driverName = $data->get('name',$defaultDriver);  
+        $driverName = $data->get('driver_name',$defaultDriver);  
         $driver = $this->get('driver')->create($driverName);
        
         // Create checkout data form event subscriber

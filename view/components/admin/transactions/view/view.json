@@ -12,6 +12,6 @@
         "transaction": "Transaction Id",
         "amount": "Amount",
         "payer": "Payer",
-        "driver": "Checkout Name"
+        "driver": "Checkout Driver"
     }
 }

@@ -39,13 +39,9 @@ class Checkout extends Extension
         $this->registerEvent('checkout.notify','IPN notify');         
         // Create db tables
         $this->createDbTable('TransactionsSchema');
-        
         // Content Types
         $this->registerContentType('Classes\\CheckoutContentType');
-        // Content providers
-      //  $this->registerContentProvider('Classes\\CheckoutContentProvier');
-
-        // current checkout driver
+        // Options
         $this->createOption('checkout.default.driver','paypal-express');      
     }   
 }

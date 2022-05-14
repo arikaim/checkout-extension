@@ -24,7 +24,9 @@
            {{ item.transaction_id }}       
         </td>            
         <td>
-            <span>{{ item.currency }}</span>
+            <span class="text-small uppercase">
+                {{ item.currency }}
+            </span>
             {{ item.amount|numberFormat }}
         </td>                              
         <td>
