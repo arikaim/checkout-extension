@@ -2,5 +2,8 @@
     "title": {
         "content": "Checkout Drivers",
         "icon": "cogs"
-    }    
+    },
+    "labels": {
+        "default": "Default Checkout Driver"
+    }   
 }

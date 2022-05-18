@@ -1,6 +1,20 @@
+{% set checkout_driver = getOption('checkout.default.driver') %}
 {% component 'semantic~tabs.vertical.content' %}
-{% set current = getOption('checkout.current') %}
 <div class="mt-4">
-    {{ component('system:admin.drivers.list',{ category: 'checkout', current : current }) }}
+    {{ component('system:admin.drivers.list',{ category: 'checkout' }) }}
+    <div class="ui divider"></div>
+    <div class="mt-2">
+        <h4>
+            {{ labels.default }}
+        </h4>
+        <div>
+            {{  component('system:admin.drivers.dropdown',{ 
+                    category: 'checkout',
+                    class: 'fluid',
+                    selected: checkout_driver 
+                }) 
+            }}  
+        </div>
+    </div>
 </div>
 {% endcomponent %}
