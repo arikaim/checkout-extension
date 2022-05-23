@@ -37,6 +37,8 @@ class CheckoutContentType extends ContentType
         $this->addField('options','text','Options');
         $this->addField('order_type','text','Order Type');
         $this->addField('description','text','Description');  
-        $this->addField('transaction_id','text','Checkout Transaction Id');          
+        $this->addField('transaction_id','text','Checkout Transaction Id');    
+        $this->addField('vendor_fee','text','Marketplace fee value paid by vendor');
+        $this->addField('vendor_account','text','Optional vendor accouut');        
     }
 }
