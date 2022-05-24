@@ -41,6 +41,8 @@ class Checkout extends Extension
         $this->createDbTable('TransactionsSchema');
         // Content Types
         $this->registerContentType('Classes\\CheckoutContentType');
+        // Services
+        $this->registerService('CheckoutService');
         // Options
         $this->createOption('checkout.default.driver','paypal-express');      
     }   
