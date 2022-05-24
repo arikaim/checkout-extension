@@ -118,7 +118,7 @@ class Checkout extends Controller
 
         if ($transaction == null) {
             // show error page      
-            $data['error_message'] = 'Error. Order is paid or error checkout transaction not valid.';
+            $data['error_message'] = 'Error. Order checkout transaction not valid.';
             return $this->pageLoad($request,$response,$data,'checkout>checkout.error',$language);
         }
       
