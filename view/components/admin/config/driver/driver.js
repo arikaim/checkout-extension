@@ -6,4 +6,10 @@ arikaim.component.onLoaded(function() {
             options.save('checkout.default.driver',value);
         }
     });
+    
+    arikaim.events.on('driver.config',function(element,name,category) {
+        arikaim.ui.setActiveTab('#driver_tab');
+
+        return drivers.loadConfig(name,'settings_content');           
+    },'driverConfig'); 
 });
