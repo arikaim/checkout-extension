@@ -74,9 +74,10 @@ class Transactions extends Model implements TransactionStorageInterface
      * Save transaction
      *
      * @param TransactionInterface $transaction
+     * @param int|null $userId
      * @return boolean
      */
-    public function saveTransaction(TransactionInterface $transaction): bool
+    public function saveTransaction(TransactionInterface $transaction, ?int $userId = null): bool
     {
         $saved = $this->getTransaction($transaction->getTransactionId());
         if (\is_object($saved) == true) {
@@ -93,7 +94,8 @@ class Transactions extends Model implements TransactionStorageInterface
             'status'          => $transaction->getStatus(),
             'payer'           => $transaction->getPayerEmail(),
             'date_created'    => $transaction->getDateTimeCreated(),
-            'details'         => \json_encode($transaction->getDetails())
+            'details'         => \json_encode($transaction->getDetails()),
+            'user_id'         => (empty($userId) == true) ? null : $userId 
         ];
 
         $model = $this->create($info);

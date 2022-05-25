@@ -31,13 +31,18 @@ class CheckoutService extends Service implements ServiceInterface
      * Import customer
      *
      * @param mixed $transaction
+     * @param int|null $userId
      * @return Model|null
      */
-    public function importCustomer($transaction)
+    public function importCustomer($transaction, ?int $userId = null)
     {
         $details = $this->getTransactionDetails($transaction);
         if ($details == null) {
             return null;
+        }
+
+        if (empty($userId) == false) {
+            $details['user_id'] = $userId;
         }
 
         // import address
@@ -62,13 +67,17 @@ class CheckoutService extends Service implements ServiceInterface
      * Import address from checkout transaction
      *
      * @param mixed $transaction
+     * @param int|null $userId
      * @return Model|null
      */
-    public function importAddress($transaction)
+    public function importAddress($transaction, ?int $userId = null)
     {
         $details = $this->getTransactionDetails($transaction);
         if ($details == null) {
             return null;
+        }
+        if (empty($userId) == false) {
+            $details['user_id'] = $userId;
         }
 
         $driver = Arikaim::driver()->create($details['checkout_driver']);
@@ -98,6 +107,7 @@ class CheckoutService extends Service implements ServiceInterface
         }
         $details = $transaction->full_details;
         $details['checkout_driver'] = $transaction->checkout_driver;
+        $details['user_id'] = $transaction->user_id;
 
         return $details;
     }

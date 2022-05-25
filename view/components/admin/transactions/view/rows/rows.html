@@ -34,6 +34,9 @@
         </td>    
         <td>
             {{ item.checkout_driver }}
+        </td>  
+        <td>
+            {{ item.user.user_name_or_email|default('..') }}
         </td>                       
     </tr>
 {% endfor %}

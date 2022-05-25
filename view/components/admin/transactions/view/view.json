@@ -7,11 +7,12 @@
     "columns": {
         "action": "Action",
         "created": "Date",
+        "user": "User",
         "status": "Status",
         "currency": "Currency",
         "transaction": "Transaction Id",
         "amount": "Amount",
         "payer": "Payer",
-        "driver": "Checkout Driver"
+        "driver": "Driver"
     }
 }

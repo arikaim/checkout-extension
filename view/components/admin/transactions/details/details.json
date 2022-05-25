@@ -2,6 +2,7 @@
     "title": "Transaction Details",
     "labels": {
         "id": "Id",
+        "user": "User",
         "external_id": "External Id"
     }       
 }

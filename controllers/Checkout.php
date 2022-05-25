@@ -123,7 +123,7 @@ class Checkout extends Controller
         }
       
         $model = Model::Transactions('checkout');
-        $model->saveTransaction($transaction);
+        $model->saveTransaction($transaction,$this->getUserId());
 
         $checkoutData->setValue('transaction_id',$transaction->getTransactionId());
 

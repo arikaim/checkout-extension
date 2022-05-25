@@ -17,7 +17,11 @@
                 <tr>
                     <td class="three wide font-bold right aligned">{{ labels.external_id }}</td> 
                     <td>{{ transaction.transaction_id }}</td>
-                </tr>               
+                </tr>   
+                <tr>
+                    <td class="three wide font-bold right aligned">{{ labels.user }}</td> 
+                    <td>{{ transaction.user.user_name_or_email|default('..') }}</td>
+                </tr>             
             </body>
         </table>            
     </div>
