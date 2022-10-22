@@ -34,6 +34,7 @@ class CheckoutDriversSchema extends Schema
         // columns    
         $table->id();
         $table->prototype('uuid'); 
+        $table->prototype('defaultColumn');  
         $table->status();
         $table->string('driver_name')->nullable(false);
         $table->string('category')->nullable(true);

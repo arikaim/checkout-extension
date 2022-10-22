@@ -39,6 +39,7 @@ class Checkout extends Extension
         $this->registerEvent('checkout.notify','IPN notify');         
         // Create db tables
         $this->createDbTable('TransactionsSchema');
+        $this->createDbTable('CheckoutDriversSchema');
         // Content Types
         $this->registerContentType('Classes\\CheckoutContentType');
         // Services

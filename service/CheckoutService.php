@@ -20,12 +20,14 @@ use Arikaim\Core\Arikaim;
 class CheckoutService extends Service implements ServiceInterface
 {
     /**
-     * Constructor
+     * Boot service
+     *
+     * @return void
      */
-    public function __construct()
+    public function boot()
     {
         $this->setServiceName('checkout');
-    }    
+    }
 
     /**
      * Import customer
@@ -34,7 +36,7 @@ class CheckoutService extends Service implements ServiceInterface
      * @param int|null $userId
      * @return Model|null
      */
-    public function importCustomer($transaction, ?int $userId = null)
+    public function importCustomer($transaction, ?int $userId = null): ?object
     {
         $details = $this->getTransactionDetails($transaction);
         if ($details == null) {
