@@ -9,13 +9,13 @@
 */
 namespace Arikaim\Extensions\Checkout\Controllers;
 
-use Arikaim\Core\Controllers\ApiController;
 use Arikaim\Core\Db\Model;
+use Arikaim\Core\Controllers\ControlPanelApiController;
 
 /**
  * Checkout control panel api controler
 */
-class CheckoutControlPanel extends ApiController
+class CheckoutControlPanel extends ControlPanelApiController
 {
     /**
      * Init controller
@@ -37,34 +37,32 @@ class CheckoutControlPanel extends ApiController
     */
     public function transctionDetailsController($request, $response, $data) 
     {        
-        $this->requireControlPanelPermission();
+        $data->validate(true);        
 
-        $this->onDataValid(function($data) { 
-            $uuid = $data->get('uuid');
-            $driverName = $data->get('driver_name',null);
+        $uuid = $data->get('uuid');
+        $driverName = $data->get('driver_name',null);
 
-            $model = Model::Transactions('checkout')->findById($uuid);
+        $model = Model::Transactions('checkout')->findById($uuid);
+        if ($model == null) {
+            $this->error('errors.id','Not valid uuid.');
+            return;
+        }
 
-            if (is_object($model) == false) {
-                $this->error('Not valid uuid.');
-                return;
-            }
+        $driver = $this->get('driver')->create($driverName);
+        if (is_object($driver) == false) {
+            $this->error('errors.driver','Not valid checkout driver name.');
+            return;
+        }
 
-            $driver = $this->get('driver')->create($driverName);
-            if (is_object($driver) == false) {
-                $this->error('Not valid checkout driver name.');
-                return;
-            }
-
-            $result = $driver->getTransactionDetails($model->transaction_id);
-           
-            $this->setResponse($result,function() use($uuid,$result) {                  
-                $this
-                    ->message('delete')
-                    ->field('details',$result);             
-            },'errors.details');              
-        });
-        $data->validate();        
+        $result = $driver->getTransactionDetails($model->transaction_id);
         
+        if ($result === false) {
+            $this->error('errors.details','Error get transaction details');
+            return false;
+        }
+
+        $this
+            ->message('delete')
+            ->field('details',$result);   
     }
 }

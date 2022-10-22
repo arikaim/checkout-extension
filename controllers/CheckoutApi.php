@@ -24,7 +24,7 @@ class CheckoutApi extends ApiController
      * @param Validator $data
      * @return Psr\Http\Message\ResponseInterface
     */
-    public function notifyController($request, $response, $data) 
+    public function notify($request, $response, $data) 
     {        
         $driverName = $data->get('name','paypal');
         $driver = $this->get('driver')->create($driverName);
