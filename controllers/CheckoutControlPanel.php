@@ -11,12 +11,15 @@ namespace Arikaim\Extensions\Checkout\Controllers;
 
 use Arikaim\Core\Db\Model;
 use Arikaim\Core\Controllers\ControlPanelApiController;
+use Arikaim\Core\Controllers\Traits\Status;
 
 /**
  * Checkout control panel api controler
 */
 class CheckoutControlPanel extends ControlPanelApiController
 {
+    use Status;
+    
     /**
      * Init controller
      *
@@ -25,6 +28,8 @@ class CheckoutControlPanel extends ControlPanelApiController
     public function init()
     {
         $this->loadMessages('checkout::admin.messages');
+        $this->setExtensionName('checkout');
+        $this->setModelClass('CheckoutDrivers');
     }
 
     /**

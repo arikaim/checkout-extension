@@ -1,0 +1,13 @@
+{
+    "title": "Checkout Drivers",
+    "icon": "cogs",
+    "label": {
+        "empty": "..",
+        "active": "Active",
+        "settings": "Settings",
+        "default": "Default"
+    },
+    "buttons": {
+        "default": "Default"
+    }
+}

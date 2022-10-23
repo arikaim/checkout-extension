@@ -34,14 +34,15 @@ class CheckoutDriversSchema extends Schema
         // columns    
         $table->id();
         $table->prototype('uuid'); 
-        $table->prototype('defaultColumn');  
+        $table->defaultColumn('default','category');  
         $table->status();
         $table->string('driver_name')->nullable(false);
+        $table->string('title')->nullable(true);
         $table->string('category')->nullable(true);
-        $table->inrteger('crypto')->nullable(true);
+        $table->integer('crypto')->nullable(true);
         $table->text('options')->nullable(true);  
         // index            
-        $tabele->unique(['driver_name','category']);
+        $table->unique(['driver_name','category']);
     }
 
     /**

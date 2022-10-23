@@ -1,0 +1,55 @@
+{% set model = createModel('CheckoutDrivers','checkout') %}
+{% set result = model.updateDriversList(category) %}
+{% set drivers = model.driversQuery(category).get() %}
+{% set empty = empty|default(label.empty) %}
+
+{% component 'semantic~panel' %}
+{% set close_button = false %}
+<div class="mt-4">
+    <div class="ui list flex-grow">    
+        {% if drivers is empty %}  
+        <div class="item">    
+            <div class="ui message">
+                {{ empty }}
+            </div>
+        </div>
+        {% endif %}
+        {% for driver in drivers %}
+        <div class="item">        
+            <div class="left floated content">           
+                {{  component('semantic~dropdown.enable',{ 
+                        selected: driver.status,
+                        class: 'mini inline icon basic compact button change-driver-status', 
+                        attributes: {
+                            uuid: driver.uuid 
+                        },
+                        show_label: false
+                    }) 
+                }}                   
+                {% if hide_config != true %}
+                <a 
+                    class="ui mini compact basic icon button driver-config" 
+                    title="{{ label.settings }}" 
+                    driver-name="{{ driver.driver_name }}">
+                    <i class="icon cog"></i>
+                </a>
+                {% endif %}              
+                {% if driver.default == 1 %}
+                    <div class="ui label basic green">{{ label.default }}</div>
+                {% else %}
+                <a class="ui mini basic blue button set-default-driver" 
+                    category="{{ category }}" 
+                    uuid="{{ driver.uuid }}">
+                    {{ buttons.default }}
+                </a>  
+                {% endif %}
+            </div>
+            <div class="content">
+                <div class="header">{{ driver.title }}</div>
+                <div class="description">{{ driver.driver_name }}</div>
+            </div>      
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endcomponent %}

@@ -14,7 +14,7 @@ function CheckoutControlPanel() {
             uuid: uuid 
         };
         
-        return arikaim.post('/api/checkout/admin/transaction/details',data,onSuccess,onError);           
+        return arikaim.post('/api/admin/checkout/transaction/details',data,onSuccess,onError);           
     };
 }
 

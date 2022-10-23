@@ -24,7 +24,9 @@ class Checkout extends Extension
     public function install()
     {        
         // Control Panel Routes       
-        $this->addApiRoute('POST','/api/checkout/admin/transaction/details','CheckoutControlPanel','transctionDetails','session'); 
+        $this->addApiRoute('POST','/api/admin/checkout/transaction/details','CheckoutControlPanel','transctionDetails','session');
+        $this->addApiRoute('PUT','/api/admin/checkout/status','CheckoutControlPanel','setStatus','session');   
+        $this->addApiRoute('PUT','/api/admin/checkout/default','CheckoutControlPanel','setDefault','session');   
         // Api               
         $this->addApiRoute('POST','/api/checkout/notify[/{name}]','CheckoutApi','notify'); 
         // Pages
