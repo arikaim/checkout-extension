@@ -22,14 +22,22 @@ function CheckoutDriversControlPanel() {
     };
 
     this.initRows = function() {
-        $('.change-driver-status').dropdown({
-            onChange: function(value) {
-                var uuid = $(this).attr('uuid');   
+        arikaim.ui.button('.change-driver-status',function(element) {  
+            var uuid = $(element).attr('uuid'); 
+            $(element).toggleClass('active');
+            var status;
             
-                checkoutDrivers.setStatus(uuid,value);
+            if ($(element).hasClass('active') == true) {
+                $(element).html('<i class="icon check"></i>');
+                status = 1;
+            } else {
+                $(element).html('<i class="icon close red"></i>');
+                status = 0;
             }
+        
+            checkoutDrivers.setStatus(uuid,status);
         });
-    
+
         arikaim.ui.button('.set-default-driver',function(element) {  
             var uuid = $(element).attr('uuid');   
             var category = $(element).attr('category');   

@@ -16,16 +16,13 @@
         {% endif %}
         {% for driver in drivers %}
         <div class="item">        
-            <div class="left floated content">           
-                {{  component('semantic~dropdown.enable',{ 
-                        selected: driver.status,
-                        class: 'mini inline icon basic compact button change-driver-status', 
-                        attributes: {
-                            uuid: driver.uuid 
-                        },
-                        show_label: false
-                    }) 
-                }}                   
+            <div class="left floated content">  
+                <button 
+                    uuid="{{ driver.uuid }}"
+                    class="ui toggle basic mini icon compact button change-driver-status 
+                    {{ (driver.status == 1) ? 'active' : '' }}">
+                    <i class="icon {{ (driver.status == 1) ? 'check' : 'close red' }}"></i>
+                </button>                    
                 {% if hide_config != true %}
                 <a 
                     class="ui mini compact basic icon button driver-config" 
