@@ -36,8 +36,8 @@ class Checkout extends Controller
         $options       = $data->get('options');
         $userId        = $data->get('user');
         $extensionName = ($extensionName == 'all' || empty($extensionName) == true) ? null : $extensionName;
-        $driver = $this->get('driver')->create($driverName);
 
+        $driver = $this->get('driver')->create($driverName);
         if (\is_object($driver) == false) {
             // not valid checkout dirver name 
             $error = 'Not valid checkout driver name.';      
@@ -56,7 +56,7 @@ class Checkout extends Controller
         if (($checkoutData instanceof ContentItemInterface) == false) {
             // not valid checkout data
             $data['error_message'] = 'Not valid checkout data.';             
-            return $this->pageLoad($request,$response,$data,'checkout>checkout.error',$language);      
+            return $this->pageLoad($request,$response,$data,'current>checkout.error',$language);      
         }
 
         // process
@@ -64,7 +64,7 @@ class Checkout extends Controller
 
         if ($checkoutResponse->hasError() == true) {
             $data['error_message'] = $checkoutResponse->getError();             
-            return $this->pageLoad($request,$response,$data,'checkout>checkout.error',$language); 
+            return $this->pageLoad($request,$response,$data,'current>checkout.error',$language); 
         }
       
         // token update  
@@ -80,7 +80,7 @@ class Checkout extends Controller
         // show error page   
         if ($checkoutResponse->hasError() == true) {
             $data['error_message'] = $checkoutResponse->getError();
-            return $this->pageLoad($request,$response,$data,'checkout>checkout.error',$language);
+            return $this->pageLoad($request,$response,$data,'current>checkout.error',$language);
         }
     }
 
