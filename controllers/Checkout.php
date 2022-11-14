@@ -35,8 +35,7 @@ class Checkout extends Controller
         $extensionName = $data->get('extension',null);
         $options       = $data->get('options');
         $userId        = $data->get('user');
-        $extensionName = ($extensionName == 'all' || empty($extensionName) == true) ? null : $extensionName;
-
+      
         $driver = $this->get('driver')->create($driverName);
         if (\is_object($driver) == false) {
             // not valid checkout dirver name 
@@ -51,7 +50,7 @@ class Checkout extends Controller
             'options'           => $options,
             'user_id'           => $userId,
             'checkout_driver'   => \trim($driverName)              
-        ],false,$extensionName);
+        ],false,($extensionName == 'all' || empty($extensionName) == true) ? null : $extensionName);
     
         if (($checkoutData instanceof ContentItemInterface) == false) {
             // not valid checkout data

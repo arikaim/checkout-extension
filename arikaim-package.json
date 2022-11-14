@@ -5,7 +5,7 @@
     "type": "system",
     "description": "Checkout service.",
     "short-description": "Checkout service.",
-    "version": "1.1.1",
+    "version": "1.1.2",
     "repository": "https://github.com/arikaim-repository/checkout-extension.git",
     "private-repository": true,
     "position": "2",

@@ -30,6 +30,28 @@ class CheckoutService extends Service implements ServiceInterface
     }
 
     /**
+     * Get checkut url path
+     *
+     * @param string      $driverName
+     * @param string      $orderId
+     * @param string|null $extension
+     * @param string|null $options
+     * @return string
+     */
+    public function getCheckoutUrlPath(
+        string $driverName, 
+        string $orderId, 
+        ?string $extension, 
+        ?string $options = null
+    ): string
+    {
+        $extension = $extension ?? 'all';
+        $options = (empty($options) == false) ? '/' . $options : '';
+
+        return '/checkout/' . $driverName . '/' . $orderId . '/' . $extension . $options;
+    }
+
+    /**
      * Import customer
      *
      * @param mixed $transaction
