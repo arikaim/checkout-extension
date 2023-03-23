@@ -28,13 +28,7 @@
                 {{ item.currency }}
             </span>
             {{ item.amount|numberFormat }}
-        </td>                              
-        <td>
-            {{ item.payer }}
-        </td>    
-        <td>
-            {{ item.checkout_driver }}
-        </td>  
+        </td>                                         
         <td>
             {{ item.user.user_name_or_email|default('..') }}
         </td>                       

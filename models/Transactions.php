@@ -18,6 +18,7 @@ use Arikaim\Core\Db\Traits\Uuid;
 use Arikaim\Core\Db\Traits\Find;
 use Arikaim\Core\Db\Traits\UserRelation;
 use Arikaim\Core\Db\Traits\Status;
+use Arikaim\Core\Db\Traits\OptionsAttribute;
 
 /**
  * Checkout transactions model class
@@ -27,6 +28,7 @@ class Transactions extends Model implements TransactionStorageInterface
     use Uuid,
         Status,
         UserRelation,
+        OptionsAttribute,
         Find;
 
     /**
@@ -50,7 +52,9 @@ class Transactions extends Model implements TransactionStorageInterface
         'status',
         'details',
         'user_id',
-        'date_created'
+        'date_created',
+        'type',
+        'options'
     ];
     
     /**

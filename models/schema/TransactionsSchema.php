@@ -43,11 +43,15 @@ class TransactionsSchema extends Schema
         $table->string('payer')->nullable(false);
         $table->dateCreated();
         $table->text('details')->nullable(true);
+        // added in ver 1.1.3
+        $table->text('options')->nullable(true);
+        $table->string('type')->nullable(true);
         // index
         $table->unique(['transaction_id']);
         $table->index('payer');  
         $table->index('checkout_driver');  
-        $table->index('amount');          
+        $table->index('amount');  
+        $table->index('type');         
     }
 
     /**
@@ -57,6 +61,13 @@ class TransactionsSchema extends Schema
      * @return void
      */
     public function update($table) 
-    {               
+    {             
+        if ($this->hasColumn('type') == false) {
+            $table->string('type')->nullable(true);
+        }
+
+        if ($this->hasColumn('options') == false) {
+            $table->text('options')->nullable(true);
+        }
     }
 }

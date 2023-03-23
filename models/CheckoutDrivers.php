@@ -47,8 +47,7 @@ class CheckoutDrivers extends Model
         'title',
         'category',
         'status',
-        'crypto',
-        'options'
+        'crypto'
     ];
     
     /**
