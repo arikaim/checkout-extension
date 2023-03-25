@@ -84,7 +84,7 @@ class Transactions extends Model implements TransactionStorageInterface
     public function saveTransaction(TransactionInterface $transaction, ?int $userId = null): bool
     {
         $saved = $this->getTransaction($transaction->getTransactionId());
-        if (\is_object($saved) == true) {
+        if ($saved != null) {
             return (bool)$saved->update([
                'status' => $transaction->getStatus()
             ]);
@@ -104,7 +104,7 @@ class Transactions extends Model implements TransactionStorageInterface
 
         $model = $this->create($info);
 
-        return \is_object($model);
+        return ($model != null);
     }
 
     /**
@@ -116,5 +116,16 @@ class Transactions extends Model implements TransactionStorageInterface
     public function getTransaction($id)
     {
         return $this->where('transaction_id','=',$id)->first();       
+    }
+
+    /**
+     * Check if transaction exist
+     *
+     * @param string $id
+     * @return boolean
+     */
+    public function hasTransaction($id): bool
+    {
+        return ($this->getTransaction($id) != null);
     }
 }

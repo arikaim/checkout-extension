@@ -37,7 +37,7 @@ class Checkout extends Controller
         $userId        = $data->get('user');
       
         $driver = $this->get('driver')->create($driverName);
-        if (\is_object($driver) == false) {
+        if ($driver == null) {
             // not valid checkout dirver name 
             $error = 'Not valid checkout driver name.';      
             return $this->pageLoad($request,$response,$error,'checkout>checkout.error',$language);      
