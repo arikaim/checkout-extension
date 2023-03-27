@@ -17,11 +17,14 @@
         <td>
             {{ item.date_created|dateFormat }}
         </td>  
-        <td>
+        <td>           
             {{ component('checkout::admin.transactions.label',{ status: item.status }) }}         
         </td>
         <td>
-           {{ item.transaction_id }}       
+            {{ item.type }}       
+         </td>
+        <td>
+           {{ item.transaction_id|sliceLabel }}       
         </td>            
         <td>
             <span class="text-small uppercase">

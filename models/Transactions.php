@@ -98,6 +98,7 @@ class Transactions extends Model implements TransactionStorageInterface
             'status'          => $transaction->getStatus(),
             'payer'           => $transaction->getPayerEmail(),
             'date_created'    => $transaction->getDateTimeCreated(),
+            'type'            => $transaction->getType(),
             'details'         => \json_encode($transaction->getDetails()),
             'user_id'         => (empty($userId) == true) ? null : $userId 
         ];

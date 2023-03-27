@@ -1,46 +1,50 @@
-
 {% set transaction = createModel('Transactions','checkout').findById(uuid) %}
-<div class="ui segment px-2">   
-    {{ component('semantic~segment-title',{ icon: 'info', title: title, close_button: true }) }}
-    <div class="py-4">
-        <table class="ui table compact definition mini">
-            <body>   
-                <tr>
-                    <td class="three wide font-bold right aligned">{{ labels.id }}</td> 
-                    <td class="break-all">
-                        <div class="ui basic label">
-                            {{ transaction.id }}
-                        </div>
-                        {{ transaction.uuid }}
-                    </td>
-                </tr>             
-                <tr>
-                    <td class="three wide font-bold right aligned">{{ labels.external_id }}</td> 
-                    <td>{{ transaction.transaction_id }}</td>
-                </tr>   
-                <tr>
-                    <td class="three wide font-bold right aligned">{{ labels.user }}</td> 
-                    <td>{{ transaction.user.user_name_or_email|default('..') }}</td>
-                </tr>             
-            </body>
-        </table>            
-    </div>
-    <div class="mt-4">
-        <table class="ui table compact definition mini">          
-            <body>
-                {% for key, value in transaction.full_details %}
-                <tr>
-                    <td class="two wide font-bold right aligned">{{ key }}</td> 
-                    <td class="break-all">
-                        {% if value is iterable %}
-                            {{ value|json_encode() }}
-                        {% else %}
-                            {{ value }}
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </body>
-        </table>      
-    </div>
-</div>
+{% component 'semantic~panel' %}
+    <table class="ui table compact definition mini">
+        <body>   
+            <tr>
+                <td class="three wide font-bold right aligned">{{ labels.id }}</td> 
+                <td class="break-all">
+                    <div class="ui basic label">
+                        {{ transaction.id }}
+                    </div>
+                    {{ transaction.uuid }}
+                </td>
+            </tr>  
+            <tr>
+                <td class="three wide font-bold right aligned">{{ labels.status }}</td> 
+                <td>
+                    {{ component('checkout::admin.transactions.label',{ status: transaction.status }) }}         
+                </td>
+            </tr>            
+            <tr>
+                <td class="three wide font-bold right aligned">{{ labels.external_id }}</td> 
+                <td>{{ transaction.transaction_id }}</td>
+            </tr> 
+            <tr>
+                <td class="three wide font-bold right aligned">{{ labels.type }}</td> 
+                <td>{{ transaction.type }}</td>
+            </tr>   
+            <tr>
+                <td class="three wide font-bold right aligned">{{ labels.user }}</td> 
+                <td>{{ transaction.user.user_name_or_email|default('..') }}</td>
+            </tr>             
+        </body>
+    </table>            
+    <table class="ui table compact definition mini">          
+        <body>
+            {% for key, value in transaction.full_details %}
+            <tr>
+                <td class="two wide font-bold right aligned">{{ key }}</td> 
+                <td class="break-all">
+                    {% if value is iterable %}
+                        {{ value|json_encode() }}
+                    {% else %}
+                        {{ value }}
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </body>
+    </table>      
+{% endcomponent %}

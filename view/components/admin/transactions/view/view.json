@@ -12,7 +12,6 @@
         "currency": "Currency",
         "transaction": "Transaction Id",
         "amount": "Amount",
-        "payer": "Payer",
-        "driver": "Driver"
+        "type": "Type"
     }
 }

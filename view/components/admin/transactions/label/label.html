@@ -1,4 +1,4 @@
-{% if status == 0 %}
+{% if status == 0 or status == 4 %}
     <div class="ui basic label">{{ labels.pending }}</div> 
 {% elseif status == 1 %}
     <div class="ui basic green label">{{ labels.completed }}</div> 

@@ -3,6 +3,8 @@
     "labels": {
         "id": "Id",
         "user": "User",
+        "type": "Type",
+        "status": "Status",
         "external_id": "External Id"
     }       
 }
