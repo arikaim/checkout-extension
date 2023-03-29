@@ -1,9 +1,11 @@
-{% if status == 0 or status == 4 %}
-    <div class="ui basic label">{{ labels.pending }}</div> 
+{% if status == 0 %}
+    <div class="ui basic blue label">{{ labels.pending }}</div> 
 {% elseif status == 1 %}
     <div class="ui basic green label">{{ labels.completed }}</div> 
 {% elseif status == 2 %}
     <div class="ui basic orange label">{{ labels.canceled }}</div> 
 {% elseif status == 3 %}
     <div class="ui basic red label">{{ labels.error }}</div> 
+{% elseif status == 4 %}
+    <div class="ui basic blue label">{{ labels.pending }}</div> 
 {% endif %}

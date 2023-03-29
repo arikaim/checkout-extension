@@ -47,4 +47,10 @@
             {% endfor %}
         </body>
     </table>      
+    {% if hasExtension('crypto') and transaction.type == 'crypto' %}
+        {{  component('crypto::admin.transactions.details.button',{ 
+                transaction_id: transaction.transaction_id 
+            }) 
+        }}
+    {% endif %}
 {% endcomponent %}
