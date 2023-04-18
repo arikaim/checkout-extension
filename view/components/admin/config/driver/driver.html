@@ -1,20 +1,27 @@
 {% set checkout_driver = getOption('checkout.default.driver') %}
-{% component 'semantic~tabs.vertical.content' %}
-<div class="mt-4">
-    {{ component('system:admin.drivers.list',{ category: 'checkout' }) }}
-    <div class="ui divider"></div>
-    <div class="mt-2">
-        <h4>
-            {{ labels.default }}
-        </h4>
-        <div>
-            {{  component('system:admin.drivers.dropdown',{ 
-                    category: 'checkout',
-                    class: '',
-                    selected: checkout_driver 
-                }) 
-            }}  
-        </div>
+<div class="ui grid">
+    <div class="ten wide column">
+        {% component 'semantic~panel' %}
+            {% set close_button = false %}
+            <div class="mt-4">
+                {{ component('system:admin.drivers.list',{ category: 'checkout' }) }}
+                <div class="ui divider"></div>
+                <div class="mt-2">
+                    <h4>
+                        {{ labels.default }}
+                    </h4>
+                    <div>
+                        {{  component('system:admin.drivers.dropdown',{ 
+                                category: 'checkout',
+                                class: '',
+                                selected: checkout_driver 
+                            }) 
+                        }}  
+                    </div>
+                </div>
+            </div>
+        {% endcomponent %}
+    </div>
+    <div class="six wide column" id="driver_config_content">
     </div>
 </div>
-{% endcomponent %}
