@@ -54,7 +54,7 @@ class CheckoutControlPanel extends ControlPanelApiController
         }
 
         $driver = $this->get('driver')->create($driverName);
-        if (is_object($driver) == false) {
+        if ($driver == null) {
             $this->error('errors.driver','Not valid checkout driver name.');
             return;
         }
