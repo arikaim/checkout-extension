@@ -42,7 +42,7 @@ class Checkout extends Controller
             $error = 'Not valid checkout driver name.';      
             return $this->pageLoad($request,$response,$error,'checkout>checkout.error',$language);      
         }
-
+  
         // Create checkout data form event subscriber
         list($checkoutData) = $this->get('event')->dispatch('checkout.create',[
             'order_id'          => \trim($dataId),

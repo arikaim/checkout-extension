@@ -114,7 +114,7 @@ class Transactions extends Model implements TransactionStorageInterface
      * @param string $id
      * @return Model|null
     */
-    public function getTransaction($id)
+    public function getTransaction($id): ?object
     {
         return $this->where('transaction_id','=',$id)->first();       
     }

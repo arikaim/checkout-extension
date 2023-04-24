@@ -70,21 +70,21 @@ class CheckoutService extends Service implements ServiceInterface
         }
 
         // import address
-        $address = $this->importAddress($details);
+        $address = $this->importAddress($transaction);
+        if (\is_object($address) == true) {
+            // link address
+            $details['address_id'] = $address->id;
+        }
+
         // import customer
         $driver = Arikaim::driver()->create($details['checkout_driver']);
         $action = $driver->getImportCustomerAction();
 
-        $customer = Arikaim::content()->runAction('entity',$action ?? 'entity.import.stripe',$details);
-        if (\is_object($customer) == false) {
-            return null;
+        if (empty($action) == false) {
+            return Arikaim::content()->runAction('entity',$action,$details);
         }
-        if (\is_object($address) == true) {
-            // link address
-            $customer->address()->linkAddress('home',$address->id);
-        }
-        
-        return $customer;
+      
+        return null;       
     }
 
     /**
@@ -106,8 +106,11 @@ class CheckoutService extends Service implements ServiceInterface
 
         $driver = Arikaim::driver()->create($details['checkout_driver']);
         $action = $driver->getImportCustomerAddressAction();
-
-        return Arikaim::content()->runAction('address',$action ?? 'address.import.stripe',$details);
+        if (empty($action) == false) {
+            return Arikaim::content()->runAction('address',$action,$details);
+        }
+        
+        return null;
     }
 
     /**
@@ -120,15 +123,15 @@ class CheckoutService extends Service implements ServiceInterface
     {
         if (\is_object($transaction) == false) {
             $transaction = Model::Transactions('checkout')->getTransaction($transaction);
-            if (\is_object($transaction) == false) {
+            if ($transaction == null) {
                 return null;
             }
         }
         
         if (\is_array($transaction->full_details) == false) {
             return null;
-
         }
+        
         $details = $transaction->full_details;
         $details['checkout_driver'] = $transaction->checkout_driver;
         $details['user_id'] = $transaction->user_id;
