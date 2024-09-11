@@ -49,6 +49,7 @@ class Transactions extends Model implements TransactionStorageInterface
         'currency',
         'checkout_driver',
         'payer',
+        'receiver',
         'status',
         'details',
         'user_id',
@@ -99,6 +100,7 @@ class Transactions extends Model implements TransactionStorageInterface
             'payer'           => $transaction->getPayerEmail(),
             'date_created'    => $transaction->getDateTimeCreated(),
             'type'            => $transaction->getType(),
+            'receiver'        => $transaction->getFiledValue('receiver',null),
             'details'         => \json_encode($transaction->getDetails()),
             'user_id'         => (empty($userId) == true) ? null : $userId 
         ];

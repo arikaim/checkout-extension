@@ -14,7 +14,7 @@ use Arikaim\Core\Db\Schema;
 /**
  * Checkout drivers data db table
  */
-class CheckoutDriversSchema extends Schema  
+class CheckoutDrivers extends Schema  
 {    
     /**
      * Table name

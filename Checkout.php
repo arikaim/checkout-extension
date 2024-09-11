@@ -40,8 +40,8 @@ class Checkout extends Extension
         $this->registerEvent('checkout.cancel','Cancel payment');  
         $this->registerEvent('checkout.notify','IPN notify');         
         // Create db tables
-        $this->createDbTable('TransactionsSchema');
-        $this->createDbTable('CheckoutDriversSchema');
+        $this->createDbTable('Transactions');
+        $this->createDbTable('CheckoutDrivers');
         // Content Types
         $this->registerContentType('Classes\\CheckoutContentType');
         // Services

@@ -14,7 +14,7 @@ use Arikaim\Core\Db\Schema;
 /**
  * Transactions db table
  */
-class TransactionsSchema extends Schema  
+class Transactions extends Schema  
 {    
     /**
      * Table name
@@ -41,6 +41,7 @@ class TransactionsSchema extends Schema
         $table->string('currency')->nullable(false);
         $table->string('checkout_driver')->nullable(false);    
         $table->string('payer')->nullable(false);
+        $table->string('receiver')->nullable(true);
         $table->dateCreated();
         $table->text('details')->nullable(true);
         // added in ver 1.1.3
@@ -68,6 +69,10 @@ class TransactionsSchema extends Schema
 
         if ($this->hasColumn('options') == false) {
             $table->text('options')->nullable(true);
+        }
+
+        if ($this->hasColumn('receiver') == false) {
+            $table->string('receiver')->nullable(true);
         }
     }
 }
