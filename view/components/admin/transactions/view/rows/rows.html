@@ -27,10 +27,14 @@
            {{ item.transaction_id|sliceLabel }}       
         </td>            
         <td>
-            <span class="text-small uppercase">
+            <span class="text-small uppercase font-bold">
                 {{ item.currency }}
             </span>
-            {{ item.amount|numberFormat }}
+            {% if item.type == 'crypto' %}
+                {{ item.amount }}
+            {% else %}
+                {{ item.amount|numberFormat }}
+            {% endif %}
         </td>                                         
         <td>
             {{ item.user.user_name_or_email|default('..') }}
