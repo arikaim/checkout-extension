@@ -1,6 +1,6 @@
 {% set checkout_driver = getOption('checkout.default.driver') %}
 <div class="ui grid">
-    <div class="ten wide column">
+    <div class="six wide column">
         {% component 'semantic~panel' %}
             {% set close_button = false %}
             <div class="mt-4">
@@ -22,6 +22,6 @@
             </div>
         {% endcomponent %}
     </div>
-    <div class="six wide column" id="driver_config_content">
+    <div class="ten wide column" id="driver_config_panel">
     </div>
 </div>

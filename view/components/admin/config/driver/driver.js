@@ -9,6 +9,6 @@ arikaim.component.onLoaded(function() {
     
     arikaim.events.on('driver.config',function(element,name,category) {
         arikaim.ui.setActiveTab('#driver_tab');
-        return drivers.loadConfig(name,'driver_config_content',null,'sixteen wide');           
+        return drivers.loadConfig(name,'driver_config_panel',null,'sixteen wide');           
     },'driverConfig'); 
 });
