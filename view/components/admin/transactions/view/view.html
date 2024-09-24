@@ -11,7 +11,10 @@
                 <th class="two wide">{{ columns.user }}</th>                                      
             </tr>
         </thead>
-        <tbody id="transactions_rows" component="checkout::admin.transactions.view.rows" namespace="transactions">
+        <tbody 
+            id="transactions_rows" 
+            component="checkout::admin.transactions.view.rows" 
+            namespace="transactions">
             {{ component('checkout::admin.transactions.view.rows') }} 
         </tbody>
     </table> 

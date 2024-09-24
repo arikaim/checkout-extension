@@ -11,7 +11,7 @@ function TransactionsView() {
 
     this.init = function() {
         arikaim.ui.tab('.transaction-tab-item','transactions_content');
-        paginator.init('transactions_rows');   
+        paginator.init('transactions_rows','checkout::admin.transactions.view.rows','transactions');   
 
         search.init({
             id: 'transactions_rows',
