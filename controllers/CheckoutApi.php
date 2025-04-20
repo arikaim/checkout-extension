@@ -22,7 +22,7 @@ class CheckoutApi extends ApiController
      * @param \Psr\Http\Message\ServerRequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param Validator $data
-     * @return Psr\Http\Message\ResponseInterface
+     * @return mixed
     */
     public function notify($request, $response, $data) 
     {        

@@ -24,7 +24,7 @@ class Checkout extends Controller
      * @param \Psr\Http\Message\ServerRequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param Validator $data
-     * @return Psr\Http\Message\ResponseInterface
+     * @return mixed
     */
     public function checkout($request, $response, $data) 
     { 
@@ -89,7 +89,7 @@ class Checkout extends Controller
      * @param \Psr\Http\Message\ServerRequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param Validator $data
-     * @return Psr\Http\Message\ResponseInterface
+     * @return mixed
     */
     public function checkoutSuccess($request, $response, $data) 
     {               
@@ -137,7 +137,7 @@ class Checkout extends Controller
      * @param \Psr\Http\Message\ServerRequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param Validator $data
-     * @return Psr\Http\Message\ResponseInterface
+     * @return mixed
     */
     public function checkoutCancel($request, $response, $data) 
     {               

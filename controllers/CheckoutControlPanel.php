@@ -38,7 +38,7 @@ class CheckoutControlPanel extends ControlPanelApiController
      * @param \Psr\Http\Message\ServerRequestInterface $request
      * @param \Psr\Http\Message\ResponseInterface $response
      * @param Validator $data
-     * @return Psr\Http\Message\ResponseInterface
+     * @return mixed
     */
     public function transctionDetailsController($request, $response, $data) 
     {        
