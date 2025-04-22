@@ -38,10 +38,7 @@ class Checkout extends Extension
         $this->registerEvent('checkout.token.update','Checkout token notify.');  
         $this->registerEvent('checkout.success','Success payment');  
         $this->registerEvent('checkout.cancel','Cancel payment');  
-        $this->registerEvent('checkout.notify','IPN notify');         
-        // Create db tables
-        $this->createDbTable('Transactions');
-        $this->createDbTable('CheckoutDrivers');
+        $this->registerEvent('checkout.notify','IPN notify');                
         // Content Types
         $this->registerContentType('Classes\\CheckoutContentType');
         // Services
@@ -49,4 +46,17 @@ class Checkout extends Extension
         // Options
         $this->createOption('checkout.default.driver','paypal-express');      
     }   
+
+    /**
+     * Create db tables
+     *
+     * @return void
+     */
+    public function dbInstall(): void
+    {
+        // Create db tables
+        $this->createDbTable('Transactions');
+        $this->createDbTable('CheckoutDrivers');
+    }
+
 }
