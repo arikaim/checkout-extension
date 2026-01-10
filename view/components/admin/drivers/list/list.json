@@ -1,6 +1,6 @@
 {
     "title": "Checkout Drivers",
-    "icon": "cogs",
+    "icon": "icons~panel",
     "label": {
         "empty": "..",
         "active": "Active",

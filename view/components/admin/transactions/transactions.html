@@ -1,19 +1,10 @@
-<div class="ui grid">
-    <div class="ten wide column">
-        <div class="ui segment">
-            <div class="ui grid">
-                <div class="ten wide column">                   
-                </div>
-                <div class="six wide right aligned column">       
-                    {{ component('semantic~paginator.dropdown',{ class: 'mini', namespace: 'transactions' }) }}
-                </div>
-            </div>
-        </div>      
-        <div class="mt-2 w-full">
-            {{ component('checkout::admin.transactions.view',{}) }}           
-        </div>         
-    </div>
-    <div class="six wide column" id="details_content">        
+<div class="flex flex-row items-start mt-4">     
+    <div class="w-full">
+        {{ component('checkout::admin.transactions.view',{}) }}           
+    </div>           
+    <div 
+        class="w-1/3 hidden ml-4" 
+        id="details_content">        
     </div>
 </div>
 

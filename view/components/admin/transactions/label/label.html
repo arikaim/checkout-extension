@@ -1,11 +1,11 @@
 {% if status == 0 %}
-    <div class="ui basic blue label">{{ labels.pending }}</div> 
+    <div class="badge badge-sm badge-outline badge-info">{{ labels.pending }}</div> 
 {% elseif status == 1 %}
-    <div class="ui basic green label">{{ labels.completed }}</div> 
+    <div class="badge badge-sm badge-outline badge-success">{{ labels.completed }}</div> 
 {% elseif status == 2 %}
-    <div class="ui basic orange label">{{ labels.canceled }}</div> 
+    <div class="badge badge-sm badge-outline badge-warning">{{ labels.canceled }}</div> 
 {% elseif status == 3 %}
-    <div class="ui basic red label">{{ labels.error }}</div> 
+    <div class="badge badge-sm badge-outline badge-error">{{ labels.error }}</div> 
 {% elseif status == 4 %}
-    <div class="ui basic blue label">{{ labels.pending }}</div> 
+    <div class="badge badge-sm badge-outline badge-info">{{ labels.pending }}</div> 
 {% endif %}

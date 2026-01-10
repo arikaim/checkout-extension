@@ -1,9 +1,23 @@
-{{  component('semantic~tabs',{ 
+{{  component('system:admin.tabs',{ 
         items: [ 
-            { id: 'view_button', title: labels.transactions.content, component: 'checkout::admin.transactions', icon: 'grid layout', active: true },  
-            { id: 'settings_button', title: labels.settings.content, component: 'checkout::admin.config', icon: 'cogs' },    
+            { 
+                title: labels.transactions.content, 
+                component: 'checkout::admin.transactions', 
+                svg_icon: 'icons~list', 
+                active: true 
+            },  
+            {           
+                title: labels.settings.content, 
+                component: 'checkout::admin.config', 
+                svg_icon: 'icons~cog' 
+            },    
         ],
-        menu: { component: 'system:admin.extensions.menu.actions', extension: 'checkout' },
-        content: { component: 'checkout::admin.transactions' } 
+        menu: { 
+            component: 'system:admin.extensions.menu.actions', 
+            extension: 'checkout' 
+        },
+        content: { 
+            component: 'checkout::admin.transactions' 
+        } 
     })
 }}

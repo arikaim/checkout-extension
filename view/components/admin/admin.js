@@ -8,18 +8,12 @@
 
 function CheckoutControlPanel() {
    
-    this.getDetails = function(uuid, driverName, onSuccess, onError) { 
-        var data = { 
+    this.getDetails = function(uuid, driverName, onSuccess, onError) {  
+        return arikaim.post('/api/admin/checkout/transaction/details',{ 
             driver_name: driverName,
             uuid: uuid 
-        };
-        
-        return arikaim.post('/api/admin/checkout/transaction/details',data,onSuccess,onError);           
+        },onSuccess,onError);           
     };
 }
 
 var checkoutAdmin = new CheckoutControlPanel();
-
-arikaim.component.onLoaded(function() { 
-    arikaim.ui.tab();        
-});

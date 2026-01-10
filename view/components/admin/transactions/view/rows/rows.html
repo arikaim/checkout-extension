@@ -7,11 +7,14 @@
     <td colspan="6">..</td>
 </tr>
 {% endif %}
+
 {% for item in items.getItems() %}  
     <tr id="{{ item.uuid }}">              
         <td>                                  
-            <button class="ui icon mini compact basic button transaction-details" uuid="{{ item.uuid }}">
-                <i class="icon info"></i>
+            <button 
+                class="{{ theme.buttons.icon }} transaction-details" 
+                uuid="{{ item.uuid }}">
+                {{ component('icons~info',theme.icons.menu,'svg') }}
             </button>                        
         </td>
         <td>

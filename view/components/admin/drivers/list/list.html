@@ -3,50 +3,48 @@
 {% set drivers = model.driversQuery(category).get() %}
 {% set empty = empty|default(label.empty) %}
 
-{% component 'semantic~panel' %}
-{% set close_button = false %}
-<div class="mt-4">
-    <div class="ui list flex-grow">    
+{% component 'system:admin.panel' %}
+    {% set hide_close = true %}
+    <div class="mt-4">
         {% if drivers is empty %}  
-        <div class="item">    
-            <div class="ui message">
-                {{ empty }}
-            </div>
-        </div>
+            {{ component('system:admin.alert.info',{ message: empty }) }}            
         {% endif %}
-        {% for driver in drivers %}
-        <div class="item">        
-            <div class="left floated content">  
-                <button 
-                    uuid="{{ driver.uuid }}"
-                    class="ui toggle basic mini icon compact button change-driver-status 
-                    {{ (driver.status == 1) ? 'active' : '' }}">
-                    <i class="icon {{ (driver.status == 1) ? 'check' : 'close red' }}"></i>
-                </button>                    
-                {% if hide_config != true %}
-                <a 
-                    class="ui mini compact basic icon button driver-config" 
-                    title="{{ label.settings }}" 
-                    driver-name="{{ driver.driver_name }}">
-                    <i class="icon cog"></i>
-                </a>
-                {% endif %}              
-                {% if driver.default == 1 %}
-                    <div class="ui label basic green">{{ label.default }}</div>
-                {% else %}
-                <a class="ui mini basic blue button set-default-driver" 
-                    category="{{ category }}" 
-                    uuid="{{ driver.uuid }}">
-                    {{ buttons.default }}
-                </a>  
-                {% endif %}
+
+        <div class="ui list flex-grow">    
+           
+            {% for driver in drivers %}
+            <div class="flex flex-row items-center">        
+                <div class="left floated content">  
+                    <button 
+                        uuid="{{ driver.uuid }}"
+                        class="ui toggle basic mini icon compact button change-driver-status 
+                        {{ (driver.status == 1) ? 'active' : '' }}">
+                        <i class="icon {{ (driver.status == 1) ? 'check' : 'close red' }}"></i>
+                    </button>                    
+                    {% if hide_config != true %}
+                    <a 
+                        class="ui mini compact basic icon button driver-config" 
+                        title="{{ label.settings }}" 
+                        driver-name="{{ driver.driver_name }}">
+                        <i class="icon cog"></i>
+                    </a>
+                    {% endif %}              
+                    {% if driver.default == 1 %}
+                        <div class="ui label basic green">{{ label.default }}</div>
+                    {% else %}
+                    <a class="ui mini basic blue button set-default-driver" 
+                        category="{{ category }}" 
+                        uuid="{{ driver.uuid }}">
+                        {{ buttons.default }}
+                    </a>  
+                    {% endif %}
+                </div>
+                <div class="content">
+                    <div class="header">{{ driver.title }}</div>
+                    <div class="px-2">{{ driver.driver_name }}</div>
+                </div>      
             </div>
-            <div class="content">
-                <div class="header">{{ driver.title }}</div>
-                <div class="description">{{ driver.driver_name }}</div>
-            </div>      
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
-</div>
 {% endcomponent %}

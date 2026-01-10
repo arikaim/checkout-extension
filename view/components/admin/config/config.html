@@ -1,21 +1,7 @@
-{% set params = { category: 'checkout' } %}
-{{  component('semantic~tabs.vertical',{ 
-        items: [ 
-            { 
-                id: 'driver_tab',
-                title: labels.dirver,
-                component: 'checkout::admin.config.driver',
-                icon: 'cogs',
-                active: true,
-                params: params 
-            }
-        ], 
-        menu: { id: 'settings_menu' }, 
-        item_class: 'settings-tab-item',
-        content: { 
-            id: 'settings_content',
-            component: 'checkout::admin.config.driver',
-            params: params 
-        } 
-    })
-}}
+<div class="flex flex-row items-start">
+    <div class="w-1/3">
+        {{ component('checkout::admin.config.driver',{ category: 'checkout' }) }}
+    </div>
+    <div class="ml-4 w-1/3" id="driver_config_panel">       
+    </div>
+</div>

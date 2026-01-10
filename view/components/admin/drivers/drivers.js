@@ -4,21 +4,17 @@ function CheckoutDriversControlPanel() {
     var self = this;
 
     this.setDefault = function(uuid, category, onSuccess, onError) {           
-        var data = { 
+        return arikaim.put('/api/admin/checkout/default',{ 
             uuid: uuid,
             keyValue: (isEmpty(category) == true) ? null : category     
-        };
-
-        return arikaim.put('/api/admin/checkout/default',data,onSuccess,onError);      
+        },onSuccess,onError);      
     };
 
     this.setStatus = function(uuid, status, onSuccess, onError) {           
-        var data = { 
+        return arikaim.put('/api/admin/checkout/status',{ 
             uuid: uuid, 
             status: status 
-        };
-
-        return arikaim.put('/api/admin/checkout/status',data,onSuccess,onError);      
+        },onSuccess,onError);      
     };
 
     this.initRows = function() {
