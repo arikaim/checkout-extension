@@ -1,0 +1,7 @@
+{
+    "title": "Settings",
+    "icon": "icons~cog",
+    "labels": {
+        "current": "Current Driver"
+    }
+}

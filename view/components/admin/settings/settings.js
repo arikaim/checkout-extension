@@ -7,6 +7,6 @@ arikaim.component.onLoaded(function() {
     });
     
     arikaim.events.on('driver.config',function(element,name,category) {
-        return drivers.loadConfig(name,'driver_config_panel',null,'');           
+        return drivers.loadConfig(name,'driver_settings_content',null,'');           
     },'driverConfig'); 
 });
