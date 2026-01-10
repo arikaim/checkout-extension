@@ -12,13 +12,17 @@
             </tr>
         </thead>
         <tbody 
-            id="transactions_rows" 
-            component="checkout::admin.transactions.view.rows" 
-            namespace="transactions">
+            id="transactions_rows">
             {{ component('checkout::admin.transactions.view.rows') }} 
         </tbody>
     </table> 
-    <div id="paginator">      
-       
+    <div class="mt-2 ml-2" id="paginator">      
+        {{  component('system:admin.paginator',{ 
+                id: 'transactions_paginator',
+                rows_selector: 'transactions_rows',
+                component: 'checkout::admin.transactions.view.rows',
+                namespace: 'transactions' 
+            }) 
+        }}
     </div>
 </div>
