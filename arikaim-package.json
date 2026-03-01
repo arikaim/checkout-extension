@@ -11,9 +11,8 @@
     "position": "2",
     "admin-menu": {        
         "title": "Checkout",
-        "svg_icon": "icons~info",
-        "page-title": "Checkout",
-        "page-icon": "icons~info",       
+        "svg_icon": "icons~billing",
+        "page-title": "Checkout",        
         "component": "checkout::admin"
     },
     "require": {
