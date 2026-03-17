@@ -10,37 +10,41 @@
             {{ component('system:admin.alert.info',{ message: empty }) }}            
         {% endif %}
 
-        <div class="ui list flex-grow">    
+        <div class="{{ theme.list.defalt }}">    
            
             {% for driver in drivers %}
             <div class="flex flex-row items-center">        
-                <div class="left floated content">  
+                <div class="flex flex-row items-center">  
                     <button 
                         uuid="{{ driver.uuid }}"
-                        class="ui toggle basic mini icon compact button change-driver-status 
+                        class="{{ theme.buttons.menu }} change-driver-status 
                         {{ (driver.status == 1) ? 'active' : '' }}">
-                        <i class="icon {{ (driver.status == 1) ? 'check' : 'close red' }}"></i>
+                        <i class="icon {{ (driver.status == 1) ? 'check' : 'close red' }}">
+
+                        </i>
                     </button>                    
                     {% if hide_config != true %}
                     <a 
-                        class="ui mini compact basic icon button driver-config" 
+                        class="{{ theme.buttons.menu }} driver-config" 
                         title="{{ label.settings }}" 
                         driver-name="{{ driver.driver_name }}">
-                        <i class="icon cog"></i>
+                        {{ component('icons~cog',theme.icons.menu,'svg') }}
                     </a>
                     {% endif %}              
                     {% if driver.default == 1 %}
-                        <div class="ui label basic green">{{ label.default }}</div>
+                        <div class="badge badge-sm badge-success">
+                            {{ label.default }}
+                        </div>
                     {% else %}
-                    <a class="ui mini basic blue button set-default-driver" 
+                    <a class="{{ theme.buttons.menu }} set-default-driver" 
                         category="{{ category }}" 
                         uuid="{{ driver.uuid }}">
                         {{ buttons.default }}
                     </a>  
                     {% endif %}
                 </div>
-                <div class="content">
-                    <div class="header">{{ driver.title }}</div>
+                <div class="ml-4 flex flex-col">
+                    <div class="font-bold">{{ driver.title }}</div>
                     <div class="px-2">{{ driver.driver_name }}</div>
                 </div>      
             </div>
