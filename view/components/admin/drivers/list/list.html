@@ -18,10 +18,9 @@
                     <button 
                         uuid="{{ driver.uuid }}"
                         class="{{ theme.buttons.menu }} change-driver-status 
-                        {{ (driver.status == 1) ? 'active' : '' }}">
-                        <i class="icon {{ (driver.status == 1) ? 'check' : 'close red' }}">
-
-                        </i>
+                        {{ (driver.status == 1) ? 'active' : '' }}">                    
+                        {% set icon_name = (driver.status == 1) ? 'icons~check' : 'icons~close' %}
+                        {{ component(icon_name,theme.icons.green,'svg') }}                       
                     </button>                    
                     {% if hide_config != true %}
                     <a 
@@ -32,11 +31,11 @@
                     </a>
                     {% endif %}              
                     {% if driver.default == 1 %}
-                        <div class="badge badge-sm badge-success">
+                        <div class="mx-2 badge badge-sm badge-success badge-outline">
                             {{ label.default }}
                         </div>
                     {% else %}
-                    <a class="{{ theme.buttons.menu }} set-default-driver" 
+                    <a class="mx-2 {{ theme.buttons.default }} btn-xs set-default-driver" 
                         category="{{ category }}" 
                         uuid="{{ driver.uuid }}">
                         {{ buttons.default }}
